@@ -24,7 +24,7 @@
             "containers":[
                {
                   "name":"blue",
-                  "image":"gauravkr04/udacity-housing",
+                  "image":"gauravkr04/udacityblue",
                   "ports":[
                      {
                         "name":"http-server",
