@@ -72,7 +72,7 @@ jobs:
           ssh-access: false
           ssh-public-key: ''
           
-  test-capston-app:
+  test-capstone-app:
       executor: aws-eks/python3
 
       steps:
