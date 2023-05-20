@@ -24,7 +24,7 @@
             "containers":[
                {
                   "name":"blue",
-                  "image":"gauravkr04/udacityblue",
+                  "image":"gauravkr04/udacityblue:v1.0.0",
                   "ports":[
                      {
                         "name":"http-server",

@@ -97,10 +97,10 @@ jobs:
                 kubectl describe svc blue -n default
                 echo  "******************************"
                 echo "Check the service traffic policy and cluster security groups for issues with Application Load Balancers"
-                kubectl get svc  uda-capstone -n default -o=jsonpath='{.spec.externalTrafficPolicy}{"\n"}'
+                kubectl get svc blue -n default -o=jsonpath='{.spec.externalTrafficPolicy}{"\n"}'
                 echo  "******************************"
                 echo "Verify that your service is configured for targetPort"
-                kubectl get svc  uda-capstone -n default -o=jsonpath="{.items[*]}{.metadata.name}{'\t'}{.spec.ports[].targetPort}{'\t'}{.spec.ports[].protocol}{'\n'}"
+                kubectl get svc blue -n default -o=jsonpath="{.items[*]}{.metadata.name}{'\t'}{.spec.ports[].targetPort}{'\t'}{.spec.ports[].protocol}{'\n'}"
 
 
 
