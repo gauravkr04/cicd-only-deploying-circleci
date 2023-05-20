@@ -96,8 +96,12 @@ jobs:
                 echo "My service - blue"
                 kubectl describe svc blue -n default
                 echo  "******************************"
-                echo "Deleting the pod"
-                kubectl delete pod blue-b5794b6d8-x7bxb 
+                echo "Check the service traffic policy and cluster security groups for issues with Application Load Balancers"
+                kubectl get svc  uda-capstone -n default -o=jsonpath='{.spec.externalTrafficPolicy}{"\n"}'
+                echo  "******************************"
+                echo "Verify that your service is configured for targetPort"
+                kubectl get svc  uda-capstone -n default -o=jsonpath="{.items[*]}{.metadata.name}{'\t'}{.spec.ports[].targetPort}{'\t'}{.spec.ports[].protocol}{'\n'}"
+
 
 
 workflows:
@@ -109,16 +113,18 @@ workflows:
       #    cluster-name: udacity-housing-cluster
       #    requires:
       #      - create-small-cluster
-      #- create-deployment:
-      #    cluster-name: udacity-housing-cluster
+      - create-deployment:
+          cluster-name: udacity-housing-cluster
       #    requires:
       #      - create-service
-      #- aws-eks/update-container-image:
-      #    cluster-name: udacity-housing-cluster
-      ##    container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
-      #    record: true
-      #    requires:
-      #      - create-deployment
-      #    resource-name: deployment/blue
-      - test-capstone-app
+      - aws-eks/update-container-image:
+          cluster-name: udacity-housing-cluster
+          container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
+          record: true
+          requires:
+            - create-deployment
+          resource-name: deployment/blue
+      - test-capstone-app:
+          requires: 
+            - aws-eks/update-container-image
           
