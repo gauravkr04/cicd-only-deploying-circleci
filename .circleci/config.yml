@@ -78,7 +78,7 @@ jobs:
       steps:
         - kubernetes/install
         - aws-eks/update-kubeconfig-with-authenticator:
-            cluster-name: udacity-housing-cluster
+            cluster-name: udacity-devops-cluster
             install-kubectl: true
             aws-region: $AWS_DEFAULT_REGION         
         - run:
@@ -107,24 +107,24 @@ jobs:
 workflows:
   deployment:
     jobs:
-      - create-small-cluster:
-          cluster-name: udacity-devops-cluster
-      - create-service:
-          cluster-name: udacity-devops-cluster
-          requires:
-            - create-small-cluster
-      - create-deployment:
-          cluster-name: udacity-devops-cluster
-          requires:
-            - create-service
-      - aws-eks/update-container-image:
-          cluster-name: udacity-devops-cluster
-          container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
-          record: true
-          requires:
-            - create-deployment
-          resource-name: deployment/blue
-      - test-capstone-app:
-          requires: 
-            - aws-eks/update-container-image
+      #- create-small-cluster:
+      #    cluster-name: udacity-devops-cluster
+      #- create-service:
+      #    cluster-name: udacity-devops-cluster
+      #    requires:
+      #      - create-small-cluster
+      #- create-deployment:
+      #    cluster-name: udacity-devops-cluster
+      #    requires:
+      #      - create-service
+      #- aws-eks/update-container-image:
+      #    cluster-name: udacity-devops-cluster
+      #    container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
+      #    record: true
+      #    requires:
+      #      - create-deployment
+      #    resource-name: deployment/blue
+      - test-capstone-app
+       #   requires: 
+       #     - aws-eks/update-container-image
           
