@@ -107,18 +107,18 @@ jobs:
 workflows:
   deployment:
     jobs:
-      #- create-small-cluster:
-      #    cluster-name: udacity-housing-cluster
-      #- create-service:
-      #    cluster-name: udacity-housing-cluster
-      #    requires:
-      #      - create-small-cluster
+      - create-small-cluster:
+          cluster-name: udacity-devops-cluster
+      - create-service:
+          cluster-name: udacity-devops-cluster
+          requires:
+            - create-small-cluster
       - create-deployment:
-          cluster-name: udacity-housing-cluster
-      #    requires:
-      #      - create-service
+          cluster-name: udacity-devops-cluster
+          requires:
+            - create-service
       - aws-eks/update-container-image:
-          cluster-name: udacity-housing-cluster
+          cluster-name: udacity-devops-cluster
           container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
           record: true
           requires:
