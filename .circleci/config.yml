@@ -72,16 +72,16 @@ jobs:
           ssh-access: false
           ssh-public-key: ''
           
-    test-capston-app:
-        executor: aws-eks/python3
+  test-capston-app:
+      executor: aws-eks/python3
 
-        steps:
-          - kubernetes/install
-          - aws-eks/update-kubeconfig-with-authenticator:
-              cluster-name: udacity-housing-cluster
-              install-kubectl: true
-              aws-region: $AWS_DEFAULT_REGION
-          - run:
+      steps:
+        - kubernetes/install
+        - aws-eks/update-kubeconfig-with-authenticator:
+            cluster-name: udacity-housing-cluster
+            install-kubectl: true
+            aws-region: $AWS_DEFAULT_REGION         
+        - run:
               name: Wait
               command: |
                 echo "My deployments"
