@@ -127,7 +127,7 @@ jobs:
               rmdir eksctl_download        
     
         - aws-eks/delete-cluster:
-            cluster-name: udacity-devops-cluster
+            cluster-name: udacity-housing-cluster
             aws-region: $AWS_DEFAULT_REGION
             wait: true
 
@@ -135,25 +135,25 @@ jobs:
 workflows:
   deployment:
     jobs:
-      - create-small-cluster:
-          cluster-name: udacity-devops-cluster
-      - create-service:
-          cluster-name: udacity-devops-cluster
-          requires:
-            - create-small-cluster
-      - create-deployment:
-          cluster-name: udacity-devops-cluster
-          requires:
-            - create-service
-      - aws-eks/update-container-image:
-          cluster-name: udacity-devops-cluster
-          container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
-          record: true
-          requires:
-            - create-deployment
-          resource-name: deployment/blue
-      - test-capstone-app:
-          requires: 
-            - aws-eks/update-container-image
-      #- delete-capston-cluster
+      #- create-small-cluster:
+      #    cluster-name: udacity-devops-cluster
+      #- create-service:
+      #    cluster-name: udacity-devops-cluster
+      #    requires:
+      #      - create-small-cluster
+      #- create-deployment:
+      #    cluster-name: udacity-devops-cluster
+      #    requires:
+      #      - create-service
+      #- aws-eks/update-container-image:
+      #    cluster-name: udacity-devops-cluster
+      #    container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
+      #    record: true
+      #    requires:
+      #      - create-deployment
+      #    resource-name: deployment/blue
+      #- test-capstone-app:
+      #    requires: 
+      #      - aws-eks/update-container-image
+      - delete-capston-cluster
           
