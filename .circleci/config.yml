@@ -71,6 +71,37 @@ jobs:
           nodes-max: 2
           ssh-access: false
           ssh-public-key: ''
+          
+    test-capston-app:
+        executor: aws-eks/python3
+
+        steps:
+          - kubernetes/install
+          - aws-eks/update-kubeconfig-with-authenticator:
+              cluster-name: udacity-housing-cluster
+              install-kubectl: true
+              aws-region: $AWS_DEFAULT_REGION
+          - run:
+              name: Wait
+              command: |
+                echo "My deployments"
+                kubectl get deployments -o wide
+                echo  "******************************"
+                echo "My services"
+                kubectl get services -o wide
+                echo  "******************************"
+                echo "My pods"
+                kubectl get pods -o wide --show-labels
+                echo  "******************************"
+                echo "My service - udacityblue"
+                kubectl describe svc udacityblue -n default
+                echo  "******************************"
+                echo "Check the service traffic policy and cluster security groups for issues with Application Load Balancers"
+                kubectl get svc  udacityblue -n default -o=jsonpath='{.spec.externalTrafficPolicy}{"\n"}'
+                echo  "******************************"
+                echo "Verify that your service is configured for targetPort"
+                kubectl get svc  udacitybluye -n default -o=jsonpath="{.items[*]}{.metadata.name}{'\t'}{.spec.ports[].targetPort}{'\t'}{.spec.ports[].protocol}{'\n'}"
+
 
 workflows:
   deployment:
@@ -81,14 +112,16 @@ workflows:
           cluster-name: udacity-housing-cluster
       #    requires:
       #      - create-small-cluster
-      - create-deployment:
-          cluster-name: udacity-housing-cluster
-          requires:
-            - create-service
-      - aws-eks/update-container-image:
-          cluster-name: udacity-housing-cluster
-          container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
-          record: true
-          requires:
-            - create-deployment
-          resource-name: deployment/blue
+      #- create-deployment:
+      #    cluster-name: udacity-housing-cluster
+      #    requires:
+      #      - create-service
+      #- aws-eks/update-container-image:
+      #    cluster-name: udacity-housing-cluster
+      ##    container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
+      #    record: true
+      #    requires:
+      #      - create-deployment
+      #    resource-name: deployment/blue
+      - test-capstone-app
+          
