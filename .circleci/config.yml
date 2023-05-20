@@ -102,7 +102,7 @@ jobs:
                 echo "Verify that your service is configured for targetPort"
                 kubectl get svc blue -n default -o=jsonpath="{.items[*]}{.metadata.name}{'\t'}{.spec.ports[].targetPort}{'\t'}{.spec.ports[].protocol}{'\n'}"
 
-    delete-capston-cluster:
+  delete-capston-cluster:
       executor: aws-eks/python3
       steps:
         - checkout
