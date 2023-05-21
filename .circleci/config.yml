@@ -106,7 +106,7 @@ jobs:
       executor: aws-eks/python3
       steps:
         - aws-eks/update-kubeconfig-with-authenticator:
-            cluster-name: udacity-devops-project
+            cluster-name: udacity-devops-cluster
             install-kubectl: true
             aws-region: $AWS_DEFAULT_REGION
         - kubernetes/delete-resource:
@@ -143,7 +143,7 @@ jobs:
               rmdir eksctl_download        
     
         - aws-eks/delete-cluster:
-            cluster-name: udacity-housing-cluster
+            cluster-name: udacity-devops-cluster
             aws-region: $AWS_DEFAULT_REGION
             wait: true
 
