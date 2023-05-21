@@ -168,7 +168,7 @@ workflows:
           requires:
             - create-deployment
           resource-name: deployment/blue
-      - test-capstone-app
+      - test-capstone-app:
           requires: 
             - aws-eks/update-container-image
       #- undeploy-capston-app
