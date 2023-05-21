@@ -174,5 +174,5 @@ workflows:
       - undeploy-capston-app
       - delete-capston-cluster:
           requires:
-            - undeploy-capstone-app
+            - undeploy-capston-app
           
