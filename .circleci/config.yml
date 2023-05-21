@@ -135,19 +135,19 @@ jobs:
 workflows:
   deployment:
     jobs:
-      - create-project-cluster:
-          cluster-name: udacity-devops-cluster
+      #- create-project-cluster:
+      #    cluster-name: udacity-devops-cluster
       - create-service:
           cluster-name: udacity-devops-cluster
-          requires:
-            - create-project-cluster
+      #    requires:
+      #      - create-project-cluster
       - create-deployment:
           cluster-name: udacity-devops-cluster
           requires:
             - create-service
       - aws-eks/update-container-image:
           cluster-name: udacity-devops-cluster
-          container-image-updates: 'blue=gauravkr04/udacityblue:v1.0.0'
+          container-image-updates: 'blue=gauravkr04/udacityblue'
           record: true
           requires:
             - create-deployment

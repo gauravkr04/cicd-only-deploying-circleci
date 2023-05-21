@@ -12,7 +12,7 @@ dockerpath=gauravkr04/udacityblue
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
 docker login
-docker tag 2180dad77e11 $dockerpath:v1.0.0
+docker tag 9963d45b1bc8 $dockerpath:v1.0.0
 
 # Step 3:
 # Push image to a docker repository
