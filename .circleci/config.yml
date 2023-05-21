@@ -135,12 +135,12 @@ jobs:
 workflows:
   deployment:
     jobs:
-      - create-small-cluster:
+      - create-project-cluster:
           cluster-name: udacity-devops-cluster
       - create-service:
           cluster-name: udacity-devops-cluster
           requires:
-            - create-small-cluster
+            - create-project-cluster
       - create-deployment:
           cluster-name: udacity-devops-cluster
           requires:
