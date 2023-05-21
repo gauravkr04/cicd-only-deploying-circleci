@@ -36,7 +36,7 @@ jobs:
       - kubernetes/create-or-update-resource:
           resource-file-path: service.json
           resource-name: service/bluegreenlb
-  create-small-cluster:
+  create-project-cluster:
     executor: aws-eks/python3
     parameters:
       cluster-name:
