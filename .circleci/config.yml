@@ -143,19 +143,19 @@ workflows:
           cluster-name: udacity-devops-cluster
       #    requires:
       #      - create-project-cluster
-      - create-deployment:
-          cluster-name: udacity-devops-cluster
-          requires:
-            - create-service
-      - aws-eks/update-container-image:
-          cluster-name: udacity-devops-cluster
-          container-image-updates: 'blue=gauravkr04/udacityblue'
-          record: true
-          requires:
-            - create-deployment
-          resource-name: deployment/blue
-      - test-capstone-app:
-          requires: 
-            - aws-eks/update-container-image
+      #- create-deployment:
+      #    cluster-name: udacity-devops-cluster
+      #    requires:
+      #      - create-service
+      #- aws-eks/update-container-image:
+      #    cluster-name: udacity-devops-cluster
+      #    container-image-updates: 'blue=gauravkr04/udacityblue'
+      #    record: true
+      #    requires:
+      #      - create-deployment
+      #    resource-name: deployment/blue
+      - test-capstone-app
+      #    requires: 
+      #      - aws-eks/update-container-image
       #- delete-capston-cluster
           
