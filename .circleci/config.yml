@@ -84,6 +84,8 @@ jobs:
         - run:
               name: Test Blue APP
               command: |
+                kubectl delete pod blue-549fb89566-wckhp
+                kubectl delete pod blue-5b5d86f455-6pb48
                 echo "My deployments"
                 kubectl get deployments -o wide
                 echo  "******************************"
