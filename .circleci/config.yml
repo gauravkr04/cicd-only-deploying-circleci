@@ -153,8 +153,8 @@ workflows:
     jobs:
       #- create-project-cluster:
       #    cluster-name: udacity-devops-cluster
-      #- create-service:
-      #    cluster-name: udacity-devops-cluster
+      - create-service:
+          cluster-name: udacity-devops-cluster
       #    requires:
       #      - create-project-cluster
       - create-deployment:
