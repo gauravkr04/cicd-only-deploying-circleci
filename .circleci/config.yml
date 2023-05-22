@@ -143,7 +143,7 @@ jobs:
               rmdir eksctl_download        
     
         - aws-eks/delete-cluster:
-            cluster-name: udacity-devops-cluster
+            cluster-name: udacity-devops-cluster1
             aws-region: $AWS_DEFAULT_REGION
             wait: true
 
@@ -168,11 +168,11 @@ workflows:
       #    requires:
       #     - create-deployment
       #    resource-name: deployment/blue
-      #- test-app:
+      - test-app
       #    requires: 
       #      - aws-eks/update-container-image
       #- undeploy-app
-      - delete-cluster
+      #- delete-cluster
       #    requires:
       #      - undeploy-app
           
