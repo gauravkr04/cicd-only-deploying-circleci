@@ -72,7 +72,7 @@ jobs:
           ssh-access: false
           ssh-public-key: ''
           
-  test-capstone-app:
+  test-app:
       executor: aws-eks/python3
 
       steps:
@@ -102,7 +102,7 @@ jobs:
                 echo "Verify that your service is configured for targetPort"
                 kubectl get svc bluegreenlb -n default -o=jsonpath="{.items[*]}{.metadata.name}{'\t'}{.spec.ports[].targetPort}{'\t'}{.spec.ports[].protocol}{'\n'}"
 
-  undeploy-capston-app:
+  undeploy-app:
       executor: aws-eks/python3
       steps:
         - aws-eks/update-kubeconfig-with-authenticator:
@@ -118,7 +118,7 @@ jobs:
             command: |
               kubectl get pods
   
-  delete-capston-cluster:
+  delete-cluster:
       executor: aws-eks/python3
       steps:
         - checkout
@@ -151,28 +151,28 @@ jobs:
 workflows:
   deployment:
     jobs:
-      #- create-project-cluster:
-      #    cluster-name: udacity-devops-cluster
-      #- create-service:
-      #    cluster-name: udacity-devops-cluster
-      #    requires:
-      #      - create-project-cluster
-      #- create-deployment:
-      #    cluster-name: udacity-devops-cluster
-      #    requires:
-      #      - create-service
-      #- aws-eks/update-container-image:
-      #    cluster-name: udacity-devops-cluster
-      #    container-image-updates: 'blue=gauravkr04/udacityblue'
-      #    record: true
-      #    requires:
-      #     - create-deployment
-      #    resource-name: deployment/blue
-      #- test-capstone-app:
-      #    requires: 
-      #      - aws-eks/update-container-image
-      - undeploy-capston-app
-      - delete-capston-cluster:
+      - create-project-cluster:
+          cluster-name: udacity-devops-cluster
+      - create-service:
+          cluster-name: udacity-devops-cluster
           requires:
-            - undeploy-capston-app
+            - create-project-cluster
+      - create-deployment:
+          cluster-name: udacity-devops-cluster
+          requires:
+            - create-service
+      - aws-eks/update-container-image:
+          cluster-name: udacity-devops-cluster
+          container-image-updates: 'blue=gauravkr04/udacityblue'
+          record: true
+          requires:
+           - create-deployment
+          resource-name: deployment/blue
+      - test-app:
+          requires: 
+            - aws-eks/update-container-image
+      #- undeploy-app
+      #- delete-cluster:
+      #    requires:
+      #      - undeploy-app
           
