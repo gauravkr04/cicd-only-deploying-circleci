@@ -84,8 +84,16 @@ jobs:
         - run:
               name: Test Blue APP
               command: |
+                echo "Describe pods"
+                kubectl describe pod blue-869fb9687c-499gt
+                echo "******************************"
+                echo "kubectl logs"
+                kubectl logs blue-869fb9687c-499gt --all-containers
+                echo "******************************"
+                echo "kubectl get events"
+                kubectl get events
                 echo "My deployments"
-                kubectl get deployments -o wide
+                kubectl describe deployments blue
                 echo  "******************************"
                 echo "My services"
                 kubectl get services -o wide
